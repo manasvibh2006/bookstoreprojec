@@ -9,9 +9,19 @@ require('dotenv').config()
 // middleware
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://book-app-frontend-tau.vercel.app','https://bookstoreprojec.vercel.app/'],
-    credentials: true
-}))
+  origin: ['http://localhost:5173', 'https://book-app-frontend-tau.vercel.app', 'https://bookstoreprojec.vercel.app'],
+  credentials: true,
+}));
+
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Credential', 'true');
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 
 // routes
 const bookRoutes = require('./src/books/book.route');
