@@ -9,9 +9,19 @@ require('dotenv').config()
 // middleware
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://book-app-frontend-tau.vercel.app','https://bookstoreprojec.vercel.app/'],
-    credentials: true
-}))
+  origin: ['http://localhost:5173', 'https://book-app-frontend-tau.vercel.app', 'https://bookstoreprojec.vercel.app'],
+  credentials: true,
+}));
+
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Credential', 'true');
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 
 // routes
 const bookRoutes = require('./src/books/book.route');
@@ -30,8 +40,17 @@ async function main() {
     res.send("Book Store Server is running!");
   });
 }
+<<<<<<< HEAD
 main().then(() => console.log("Mongodb connect successfully!")).catch(err => console.log(err));
 
 app.listen(port, () => {
   console.log(Example app listening on port ${port});
 });
+=======
+
+main().then(() => console.log("Mongodb connect successfully!")).catch(err => console.log(err));
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+>>>>>>> 7992b4528a178dfda7bacfacb67a329dcda22289
