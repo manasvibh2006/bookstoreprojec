@@ -30,3 +30,9 @@ async function main() {
     res.send("Book Store Server is running!");
   });
 }
+
+main().then(() => console.log("Mongodb connect successfully!")).catch(err => console.log(err));
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
